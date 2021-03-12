@@ -7,7 +7,7 @@ const { v4: uuidV4}  = require('uuid')
 let port = 3000;
 
 app.set('view engine','ejs');
-app.use(express.static('public'));
+app.use(express.static(__dirname + '/public'));
 
 app.get('/', (req, res) =>{
   //uuidV4 generates random id

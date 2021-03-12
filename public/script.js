@@ -43,6 +43,7 @@ function connectToNewUser(userId, stream) {
   })
   call.on('close', () => {
     video.remove()
+    autoResizeVideos()
   })
 
   peers[userId] = call
@@ -54,4 +55,40 @@ function addVideoStream(video, stream) {
     video.play()
   })
   videoGrid.append(video)
+  autoResizeVideos()
 }
+
+function autoResizeVideos(){
+  let wRatio = document.body.clientWidth / document.body.clientHeight,
+  vRatio,
+  possibilities = [],
+  differences = [];
+  //can have as many cols or rows as num videos displaying
+  let numVids = document.getElementsByTagName("video").length;
+
+  //x = possible number of colums
+  //keeping aspect ratio of 16:9
+  const X_ASPECT = 16;
+  const Y_ASPECT = 9;
+  for (let x = 1; x <= Math.ceil(numVids / 2); x++) {
+    vRatio = (x * X_ASPECT) / (Math.ceil(numVids / x) * Y_ASPECT);
+    possibilities.push([vRatio, x]);
+  }
+  // after we get to numVids/2 rows, only value after that is x = numvids
+  possibilities.push([numVids, numVids]);
+
+  possibilities.forEach((possibility) => {
+    differences.push([Math.abs(possibility[0] - wRatio), possibility[1]]);
+  });
+
+  //find ratio with smallest difference
+  differences.sort((a, b) => a[0] - b[0]);
+
+  const col = differences[0][1];
+  const row = Math.ceil(numVids / differences[0][1]);
+
+  document.documentElement.style.setProperty("--col", col);
+  document.documentElement.style.setProperty("--row", row);
+}
+
+window.addEventListener("resize", autoResizeVideos);
