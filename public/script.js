@@ -2,7 +2,7 @@ const socket = io('/');
 const videoGrid = document.getElementById('video-grid')
 const randomId = Math.random().toString(36).replace(/[^a-z]+/g, '').substr(2, 10);
  const myPeer = new Peer(randomId,{
-  secure: false,
+  secure: true,
   host: 'jmachadspeer.herokuapp.com',
   port: 443,
   config: {
