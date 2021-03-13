@@ -3,7 +3,10 @@ const videoGrid = document.getElementById('video-grid')
 const myPeer = new Peer(undefined,{
   secure: true,
   host: 'jmachadspeer.herokuapp.com',
-  port: 443
+  port: 443,
+  config: {
+    'iceServers': [{ 'urls': 'stun:stun.l.google.com:19302' }]
+  }
 });
 const peers = {};
 const myVideo = document.createElement('video');
