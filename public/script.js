@@ -1,14 +1,14 @@
 const socket = io('/');
 const videoGrid = document.getElementById('video-grid')
-const myPeer = new Peer();
-/** const myPeer = new Peer(undefined,{
+const randomId = Math.random().toString(36).replace(/[^a-z]+/g, '').substr(2, 10);
+ const myPeer = new Peer(randomId,{
   secure: false,
   host: 'jmachadspeer.herokuapp.com',
   port: 443,
   config: {
     'iceServers': [{ 'urls': 'stun:stun.l.google.com:19302' }]
   }
-}); */
+}); 
 const peers = {};
 const myVideo = document.createElement('video');
 myVideo.muted = true;
