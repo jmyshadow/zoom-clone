@@ -1,7 +1,7 @@
 const socket = io('/');
 const videoGrid = document.getElementById('video-grid')
 const myPeer = new Peer(undefined,{
-  secure: true,
+  secure: false,
   host: 'jmachadspeer.herokuapp.com',
   port: 443,
   config: {
